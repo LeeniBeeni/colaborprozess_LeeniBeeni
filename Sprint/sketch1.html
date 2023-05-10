@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="libraries/p5.min.js"></script>
+  <!-- <script src="sketch.js"></script> -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <script>
+    let rects = []
+    let melt = false
+    let meltingProgress = 0
+    let originalRects = []
+
+    function setup() {
+      createCanvas(400, 400);
+      frameRate(30)
+      colorMode(HSB, 10, 100, 100, 1)
+
+      for (let x = 0; x < width; x += 40) {
+        for (let y = 0; y < height; y += 40) {
+          rects.push({
+            x: x,
+            y: y,
+            width: 40,
+            height: 40
+          })
+        }
+      }
+      originalRects = JSON.parse(JSON.stringify(rects))
+    }
+
+    function draw() {
+      background(0, 0, 0);
+      let index = 0
+
+      for (let i = 0; i < rects.length; i++) {
+        let rectObj = rects[i]
+        let noise_value = noise(rectObj.x * 0.01, rectObj.y * 0.01, frameCount * 0.02)
+        let r = map(rectObj.x + (rectObj.y * (noise_value * 2.64626)), 0, width, 0, 10) % 10;
+        let g = 255 - r; // Invert the green channel based on the red value
+        let b = map(rectObj.x, 0, width, 255, 0); // Map the blue channel from 255 to 0 based on the x-coordinate
+
+        if (melt) {
+          let targetWidth = map(index, 0, rects.length, width, 0)
+          rectObj.width = lerp(rectObj.width, targetWidth, meltingProgress)
+          rectObj.x = lerp(rectObj.x, width / 2 - targetWidth / 2, meltingProgress)
+          rectObj.y = lerp(rectObj.y, height / 2 - rectObj.height / 2, meltingProgress)
+        } else {
+          rectObj.width = lerp(rectObj.width, originalRects[i].width, meltingProgress)
+          rectObj.x = lerp(rectObj.x, originalRects[i].x, meltingProgress)
+          rectObj.y = lerp(rectObj.y, originalRects[i].y, meltingProgress)
+        }
+
+        fill(r, 100, 100);
+        noStroke()
+        rect(rectObj.x, rectObj.y, rectObj.width, rectObj.height);
+        index++
+      }
+
+      if (melt) {
+        meltingProgress += 0.01
+        if (meltingProgress >= 1) {
+          meltingProgress = 0
+        }
+      } else {
+        meltingProgress -= 0.005
+        if (meltingProgress <= 0) {
+          meltingProgress = 10
+        }
+      }
+    }
+
+    function mouseClicked() {
+      melt = !melt
+    }
+
+  </script>
+
+
+</body>
+
+</html>
