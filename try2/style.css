@@ -1,0 +1,26 @@
+#p5{
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+
+.big-blue-text{ 
+    color: rgb(77, 255, 0);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+.emoji{
+    color: blue;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 100px;
+}
+
+.emoji2{
+    color: rgb(255, 0, 208);
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: 100px;
+}

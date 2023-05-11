@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: black;
+    background-color: blueviolet;
     display: flex;
     align-items: center;
     min-height: 100vh;
@@ -25,7 +25,7 @@ h1 {
     width: 100%;
     right: 1rem;
     top: 0;
-    color: white;
+    color: rgb(30, 255, 0);
 }
 
 .process {
@@ -46,7 +46,7 @@ h1 {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border-right: 1px solid white;
+    border-right: 1px solid rgb(30, 255, 0);
 
 }
 
@@ -56,7 +56,7 @@ h1 {
 }
 
 .process li a {
-    color: white;
+    color: rgb(30, 255, 0);
     text-decoration: none;
     font-size: 5rem;
     text-align: center;
